@@ -83,33 +83,43 @@ Para a apresentacao das etapas e resultados, apresentamos capturas de tela das m
 Agora, a seguir observamos as atualizacoes feita na tabela de registradores e na memoria de dados a cada instrucao.
 
 **lw $t0, b**
+
 ![lw $t0, b](https://github.com/user-attachments/assets/018a9779-7e74-41f0-83e0-9a4ec7287633)
 
 **addi $t1, $t0, 35**
+
 ![addi $t1, $t0, 35](https://github.com/user-attachments/assets/c227624e-76ba-4a58-bc43-18afafab7cc5)
 
 **lw $t2, e**
+
 ![lw $t2, e](https://github.com/user-attachments/assets/df9fdd08-87ab-42f7-acd1-c30b16100bbb)
 
 **add  $t3, $t1, $t2**
+
 ![add  $t3, $t1, $t2](https://github.com/user-attachments/assets/85a264fc-2180-4675-bb3c-0b955fff3f1d)
 
 **lw $t4, d**
+
 ![lw $t4, d](https://github.com/user-attachments/assets/fb83eac2-ed99-4e85-989b-21ff02e6957d)
 
 **add $t5, $t4, $t4**
+
 ![add $t5, $t4, $t4](https://github.com/user-attachments/assets/de0632fd-d821-4e24-86fd-0afaa749448c)
 
 **add $t6, $t5, $t5**
+
 ![add $t6, $t5, $t5](https://github.com/user-attachments/assets/b2d9d985-1e73-4ecb-848e-a540e958f28c)
 
 **sub $s0, $t6, $t3**
+
 ![sub $s0, $t6, $t3](https://github.com/user-attachments/assets/f23ac1b8-8a58-4ca8-b551-62e394e491bf)
 
 **la $t0, c**
+
 ![la $t0, c](https://github.com/user-attachments/assets/c39bdcf6-ffc6-4dd5-985c-7ccec7716469)
 
 **sw $s0, 0($t0)**
+
 ![sw $s0, 0($t0)](https://github.com/user-attachments/assets/46ab1277-ad90-42f4-97f1-ef5d76c40ea1)
 
 ### 1.6 Conclusao
