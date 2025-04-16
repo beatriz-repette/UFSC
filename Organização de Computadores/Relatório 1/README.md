@@ -61,5 +61,6 @@ sw $s0, 0($t0)  # o valor em s0 é armazenado no endereco de memoria indicado em
 ### 1.2 Execucao
 Como esse item nao tem comandos de exibicao no terminal, avaliamos a execucao ao analisar os valores finais nos registradores e memoria de dados.
 
-![Memoria de dados no final da execucao](https://github.com/user-attachments/assets/43a084a3-4d7f-4584-9156-5f2f4762bf9e)
+![Memoria de dados ao final da execucao](https://github.com/user-attachments/assets/43a084a3-4d7f-4584-9156-5f2f4762bf9e)
 
+![Registradores ao final da execucao](https://github.com/user-attachments/assets/5c201bdc-a1f3-4d7d-af1e-bdca0aec3efa)
