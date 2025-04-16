@@ -2,27 +2,26 @@
 **Alunas:** Beatriz Reis Repette e Ana Luiza Gobbi
 
 ## 1. Exercício 1
-Nesse exercicio, nos implementamos duas equacoes de alto nivel na linguagem de montagem Assembly, podendo escolher os valores para as variaveis.
 
 
 ### 1.1 Introducao
-O exercico proposto consiste em implementar duas equacoes de alto nivel na linguagem de montagem Assembly. 
+O exercício proposto consiste em implementar duas equações de alto nível na linguagem de montagem Assembly.
 ```
 a = b + 35
 c = d^3 - (a + e)
 ```
-Para realizar esses calculos, declaramos as variaveis b, c, d e e na memoria de dados e atribuimos valores iniciais a essas variaveis. Para essa resolucao escolhemos os seguintes valores de inicio:
+Para realizar esses cálculos, declaramos as variáveis b, c, d e e na memória de dados e atribuímos valores iniciais a elas. Para esta resolução, escolhemos os seguintes valores iniciais:
 ```
 b = 5
 c = 0
 d = 2
 e = 10
 ```
-Observamos que a variavel 'a' nao foi declarada em memoria de dados. Como essa variavel sera usada apenas para armazenar o valor do resultado inicial da operacao "b + 35" e logo depois sera usado em outro calculo, podemos mante-lo em um registrador. Alem disso, eh importante destacar que a variavel 'c' eh inicializada em zero, mas servira mais tarde para armazenar o resultado da segunda expressao.
 
+### 1.2 Características Gerais do Programa
+O programa elaborado para resolver o exercício 1 possui 14 linhas na aba *basic* e 10 linhas na aba *source*. Essa diferença ocorre devido à presença de pseudoinstruções, que são traduzidas pelo montador em múltiplas instruções reais que aparecem na aba *basic*, mas aparecem como uma única linha na aba source (com o que nós *de fato* escrevemos como instrução).
 
-### 1.2 Caracteristicas Gerais do Programa
-O programa elaborado para resolver o exercicio 1 teve 14 linhas em 'basic' e 10 linhas em 'source'. Essa diferenca de valores ocorre por causa de pseudoinstrucoes ou por existirem instrucoes que nao sao mostradas em 'soruce'. No nosso codigo usamos a instrucao 'la', que de fato interpretada como duas instrucoes, 'lui' e 'ori'. Alem disso, quando implementamos a instrucao 'lw' no nosso codigo carregando o endereco de uma variavel na memoria de dados, o mars adiciona a instrucao 'lui' antes de 'lw', o que tambem incrementa o numero de linhas do 'basic' quando comparado ao 'source'. **mudar pra 16 e 12 se eu for usar o syscal**
+Em nosso código, utilizamos a instrução ```la```, que, na verdade, é interpretada como duas instruções: ```lui``` e ```ori```. Além disso, ao utilizarmos a instrução ```lw``` para carregar o valor de uma variável da memória de dados, o MARS insere automaticamente a instrução ```lui``` antes de ```lw``` (como o MARS não é capaz de manipular endereços de 32 bits inteiros de uma só vez, como é o caso dos endereços de memória, é necessário dividi-los em partes superiores e inferiores), o que também contribui para o aumento no número de linhas na aba *basic*.
 
 
 ### 1.3 Declaracao das Variaveis em Memoria de Dados
@@ -34,15 +33,14 @@ d: .word 2
 e: .word 10
 c: .word 0 #inicializa com 0, depois c vai armazenar a variavel final
 ```
+Observa-se que a variável ```a``` não foi declarada na memória de dados. Como ela será utilizada apenas para armazenar o resultado intermediário da operação ```b + 35```, e logo em seguida será usada em outro cálculo, é possível mantê-la em um registrador. Além disso, é importante destacar que a variável ```c``` é inicializada com zero, mas será utilizada posteriormente para armazenar o resultado da segunda expressão.
 
-Percebe-se que "a" nao foi declarada na memoria de dados. Como "a" eh um avariavel temporarea que eh usada para pegar o resultado da primeira equacao e ja eh usado para calcular o valor da segunda, nao faz sentido declarar esse valor em memoria, ele eh temporareo
 
-
-### 1.4 Implementacao da Resolucao
-A seguir, exemplifica-se cada etapa de implementacao para bem resolver o problema proposto, e suas limitacioes.
+### 1.4 Implementação da Resolução
+A seguir, detalham-se as etapas de implementação utilizadas para resolver o problema proposto, bem como suas limitações.
 
 #### a = b + 35
-No trecho a seguir, o valor 'b' é carregado da memória para o registrador $t1. Em seguida, somamos 35 a esse valor utilizando a instrução addi, e o resultado é armazenado em $t2, que usamos como registrador temporário para representar 'a'. Como a é usado apenas como intermediário no cálculo de c, não ha necessidade em armazená-lo em memória.
+No trecho a seguir, o valor de ```b``` é carregado da memória para o registrador ```$t1```. Em seguida, somamos 35 a esse valor utilizando a instrução ```addi```, e o resultado é armazenado em ```$t2```, que é utilizado como registrador temporário para representar ```a```. Como a é usado apenas como intermediário no cálculo de ```c```, não há necessidade de armazená-lo na memória.
 ```assembly
 la $t0, b         # carrega o endereco da variavel b
 lw $t1, 0($t0)    # carrega o valor de b no registrador $t1
@@ -50,9 +48,9 @@ lw $t1, 0($t0)    # carrega o valor de b no registrador $t1
 addi $t2, $t1, 35 # t2 = a = b + 35
 ```
 
-#### c = d^3 - (a + e)
-Como o uso de instrucoes de multiplicacao (mul) e de salto (jump, por exemplo) foi proibido, nao eh possivel implementar uma multiplicacao generica como d * d * d para valores arbitrarios d. Uma implementacao gnerica exigiria uma estrutura de repeticao, no minimo, pois nao temos como saber de antemao o numero de somas que teriamos que fazer para substituir a funcao mul para cada numero.
-Por isso, optamos por implementar diretamente o caso especifico em que d = 2, realizando as somas manuais necessarias para chegar ao valor de d^3 = 2^3 = 8. Esse tipo de solucao atende as restricoes impostas e resolve corretamente o problema proposto, dado que d assuma o valor de 2.
+#### c = d³ - (a + e)
+Como o uso de instruções de multiplicação (```mul```) e de salto (como ```jump```) foi proibido, não é possível implementar uma multiplicação genérica como ```d * d * d``` para valores arbitrários de ```d```. Uma implementação genérica exigiria, no mínimo, uma estrutura de repetição, pois não se sabe previamente o número de somas necessárias para substituir a operação de multiplicação em cada caso.
+Por essa razão, optamos por implementar diretamente o caso específico em que ```d = 2```, realizando as somas manuais necessárias para obter o valor de ```d³ = 2³ = 8```. Esse tipo de solução atende às restrições impostas e resolve corretamente o problema proposto, desde que d assuma o valor 2.
 ```assembly
 # a + e
 lw $t2, e  # t2 = 10
@@ -78,8 +76,8 @@ sw $s0, 0($t0)  # o valor em s0 é armazenado no endereco de memoria indicado em
 ```
 
 
-### 1.5 Execucao do Programa
-Para a apresentacao das etapas e resultados, apresentamos capturas de tela das mudancas ta tabela de registradores e da memoria de dados a cada comando executado.
+### 1.5 Execução do Programa
+Para a apresentação das etapas e dos resultados, foram incluídas capturas de tela das alterações na tabela de registradores e na memória de dados a cada comando executado.
 
 
 **Assemble** - Ao montar o programa, vemos a seguinte tela no Mars
