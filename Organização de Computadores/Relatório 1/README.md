@@ -11,8 +11,6 @@ $$
 ### 1.1 Implementacao
 
 #### 1.1.1 Armazenando Variaveis na Memoria
-**ARRUMAR ESSA PARTE**
-
 ```assembly
 .data  # usa-se data para armazenar as variaveis declaradas a seguir em memoria de dados
 
@@ -61,3 +59,7 @@ sw $s0, 0($t0)  # o valor em s0 é armazenado no endereco de memoria indicado em
 ```
 
 ### 1.2 Execucao
+Como esse item nao tem comandos de exibicao no terminal, avaliamos a execucao ao analisar os valores finais nos registradores e memoria de dados.
+
+![Memoria de dados no final da execucao](https://github.com/user-attachments/assets/43a084a3-4d7f-4584-9156-5f2f4762bf9e)
+
