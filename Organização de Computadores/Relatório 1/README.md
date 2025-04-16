@@ -82,7 +82,7 @@ sw $s0, 0($t0)  # o valor em s0 é armazenado no endereco de memoria indicado em
 Para a apresentacao das etapas e resultados, apresentamos capturas de tela das mudancas ta tabela de registradores e da memoria de dados a cada comando executado.
 
 
-**Assemble** - Ao montar o programa, vamos a seguinte tela no Mars
+**Assemble** - Ao montar o programa, vemos a seguinte tela no Mars
 ![Parte 1](https://github.com/user-attachments/assets/1a3cb592-a68e-48c9-b6d8-7b56875d5f3c)
 
 Agora, a seguir observamos as atualizacoes feita na tabela de registradores e na memoria de dados a cada instrucao.
@@ -151,3 +151,32 @@ Nosso objetivo no exercicio 2 eh aprimorar o codigo feito para o exercicio 1, im
 
 
 ### 2.2 Syscal: Metodos de Leitura e Escrita de Inteiros
+Para receber valores do teclado e exibir dados no console precisamos fazer chamadas de sistema. Em assembly, exietsm metodos/funcoes para o syscal, sendo o 5 para leitura de inteiro e 1 para impressao de inteiro. 
+
+Para fazer a leitura de valores, comecamos por armazenar em $v0 o valor da instrucao que deseja-se fazer. Depois, fazemos a chamada de syscal e terminamos armazenando o valor que agora esta em $v0 na variavel correspondente ('b', 'd' e 'e', respectivamente).
+```
+# entrada de dados
+li $v0, 5  # a operacao 5 eh ler um inteiro
+syscall
+sw $v0, b  # armazena em b
+
+li $v0, 5  # input de d
+syscall
+sw $v0, d
+
+li $v0, 5  # input de e
+syscall
+sw $v0, e
+```
+
+Para exibir o resultado no console, comecamos guardando em $v0 a instrucao para impressao de inteiro (nesse caso, 1), move o valor de c para $a0 o valor a ser impresso e, por fim, faz a chamada de sistema.
+```
+# exibindo o resultado
+li $v0, 1  # a operacao 1 eh de impressao de inteiro
+move $a0, c  # move o valor de c para a0 (para imprimir)
+syscall
+```
+
+### 2.3 Execucao do Programa
+**Assemble** - Ao montar o programa, vemos a seguinte tela no Mars
+![Inicio exercicio 2](https://github.com/user-attachments/assets/6609553a-114c-4075-b482-cbc345d919a6)
