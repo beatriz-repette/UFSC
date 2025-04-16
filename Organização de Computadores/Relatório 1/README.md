@@ -35,7 +35,7 @@ c: .word 0 #inicializa com 0, depois c vai armazenar a variavel final
 
 Percebe-se que "a" nao foi declarada na memoria de dados. Como "a" eh um avariavel temporarea que eh usada para pegar o resultado da primeira equacao e ja eh usado para calcular o valor da segunda, nao faz sentido declarar esse valor em memoria, ele eh temporareo
 
-### Implementacao da Resolucao
+### 1.4 Implementacao da Resolucao
 A seguir, exemplifica-se cada etapa de implementacao para bem resolver o problema proposto, e suas limitacioes.
 
 #### a = b + 35
@@ -74,10 +74,45 @@ la $t0, c  # o endereco de 'c' é carregado para t0
 sw $s0, 0($t0)  # o valor em s0 é armazenado no endereco de memoria indicado em t0, ou seja, no c
 ```
 
-### 1.2 Execucao do Programa
-Para a apresentacao das etapas e resultados, exibiremos fotos do programa sendo executado, passo a passo.
+### 1.5 Execucao do Programa
+Para a apresentacao das etapas e resultados, apresentamos capturas de tela das mudancas ta tabela de registradores e da memoria de dados a cada comando executado.
 
+**Assemble** - Ao montar o programa, vamos a seguinte tela no Mars
+![Parte 1](https://github.com/user-attachments/assets/1a3cb592-a68e-48c9-b6d8-7b56875d5f3c)
 
-![Memoria de dados ao final da execucao](https://github.com/user-attachments/assets/43a084a3-4d7f-4584-9156-5f2f4762bf9e)
+Agora, a seguir observamos as atualizacoes feita na tabela de registradores e na memoria de dados a cada instrucao.
 
-![Registradores ao final da execucao](https://github.com/user-attachments/assets/5c201bdc-a1f3-4d7d-af1e-bdca0aec3efa)
+**lw $t0, b**
+![lw $t0, b](https://github.com/user-attachments/assets/018a9779-7e74-41f0-83e0-9a4ec7287633)
+
+**addi $t1, $t0, 35**
+![addi $t1, $t0, 35](https://github.com/user-attachments/assets/c227624e-76ba-4a58-bc43-18afafab7cc5)
+
+**lw $t2, e**
+![lw $t2, e](https://github.com/user-attachments/assets/df9fdd08-87ab-42f7-acd1-c30b16100bbb)
+
+**add  $t3, $t1, $t2**
+![add  $t3, $t1, $t2](https://github.com/user-attachments/assets/85a264fc-2180-4675-bb3c-0b955fff3f1d)
+
+**lw $t4, d**
+![lw $t4, d](https://github.com/user-attachments/assets/fb83eac2-ed99-4e85-989b-21ff02e6957d)
+
+**add $t5, $t4, $t4**
+![add $t5, $t4, $t4](https://github.com/user-attachments/assets/de0632fd-d821-4e24-86fd-0afaa749448c)
+
+**add $t6, $t5, $t5**
+![add $t6, $t5, $t5](https://github.com/user-attachments/assets/b2d9d985-1e73-4ecb-848e-a540e958f28c)
+
+**sub $s0, $t6, $t3**
+![sub $s0, $t6, $t3](https://github.com/user-attachments/assets/f23ac1b8-8a58-4ca8-b551-62e394e491bf)
+
+**la $t0, c**
+![la $t0, c](https://github.com/user-attachments/assets/c39bdcf6-ffc6-4dd5-985c-7ccec7716469)
+
+**sw $s0, 0($t0)**
+![sw $s0, 0($t0)](https://github.com/user-attachments/assets/46ab1277-ad90-42f4-97f1-ef5d76c40ea1)
+
+### 1.6 Conclusao
+Embora nos nao tenhamos conseguido implementar uma solucao para um d generico, dada a restricao onde d = 2, o codigo escrito resolve de forma correta as duas equacoes dadas pelos problema.
+
+## 2. Exercício 2
