@@ -1,10 +1,10 @@
-# Relatório 1 - INE5411
-**Alunas:** Beatriz Reis Repette e Ana Luiza Gobbi
+# INE5411 - Relatório 1
+**Alunas:** Beatriz Reis Repette & Ana Luiza Gobbi
 
 ## 1. Exercício 1
 
 
-### 1.1 Introducao
+### 1.1 Introdução
 O exercício proposto consiste em implementar duas equações de alto nível na linguagem de montagem Assembly.
 ```
 a = b + 35
@@ -80,78 +80,80 @@ sw $s0, 0($t0)  # o valor em s0 é armazenado no endereco de memoria indicado em
 Para a apresentação das etapas e dos resultados, foram incluídas capturas de tela das alterações na tabela de registradores e na memória de dados a cada comando executado.
 
 
-**Assemble** - Ao montar o programa, vemos a seguinte tela no Mars
+**Assemble** - Ao montar o programa, vemos a seguinte tela no MARS:
 ![Parte 1](https://github.com/user-attachments/assets/1a3cb592-a68e-48c9-b6d8-7b56875d5f3c)
 
 Agora, a seguir observamos as atualizacoes feita na tabela de registradores e na memoria de dados a cada instrucao.
 
 
-**lw $t0, b**
+**lw $t0, b** - Carrega o valor armazenado em ```b```, 5, para o registrador ```$t0```.
 
 ![lw $t0, b](https://github.com/user-attachments/assets/018a9779-7e74-41f0-83e0-9a4ec7287633)
 
 
-**addi $t1, $t0, 35**
+**addi $t1, $t0, 35** - Adiciona 35 ao valor de ```$t0``` e o armazena em ```$t1```, ou seja, armazena 40 em ```$t1```.
 
 ![addi $t1, $t0, 35](https://github.com/user-attachments/assets/c227624e-76ba-4a58-bc43-18afafab7cc5)
 
 
-**lw $t2, e**
+**lw $t2, e** - Carrega o valor armazenado em ```e```, 10, para o registrador ```$t2```.
 
 ![lw $t2, e](https://github.com/user-attachments/assets/df9fdd08-87ab-42f7-acd1-c30b16100bbb)
 
 
-**add  $t3, $t1, $t2**
+**add  $t3, $t1, $t2** - Adiciona os valores de ```$t1``` e ```$t2``` (```40 + 10 = 50```) e armazena o resultado em ```$t3```.
 
 ![add  $t3, $t1, $t2](https://github.com/user-attachments/assets/85a264fc-2180-4675-bb3c-0b955fff3f1d)
 
 
-**lw $t4, d**
+**lw $t4, d** - Carrega o valor armazenado em ```d```, 2, para o registrador ```$t4```.
 
 ![lw $t4, d](https://github.com/user-attachments/assets/fb83eac2-ed99-4e85-989b-21ff02e6957d)
 
 
-**add $t5, $t4, $t4**
+**add $t5, $t4, $t4** - Adiciona o valor de ```$t4``` consigo mesmo (``` 2 + 2```, simulando ```d^2```) e armazena o resultado em ```$t5```.
 
 ![add $t5, $t4, $t4](https://github.com/user-attachments/assets/de0632fd-d821-4e24-86fd-0afaa749448c)
 
 
-**add $t6, $t5, $t5**
+**add $t6, $t5, $t5** - Adiciona, mais uma vez, o valor de ```$t5``` consigo mesmo (``` 4 + 4```, simulando ```d^2 * d = d^3```) e armazena o resultado em ```$t6```.
 
 ![add $t6, $t5, $t5](https://github.com/user-attachments/assets/b2d9d985-1e73-4ecb-848e-a540e958f28c)
 
 
-**sub $s0, $t6, $t3**
+**sub $s0, $t6, $t3** - Subtrai o valor de ```$t3``` de ```$t6``` (```8 - 50 = -42```) e armazena o resultado em ```$s0```.
 
 ![sub $s0, $t6, $t3](https://github.com/user-attachments/assets/f23ac1b8-8a58-4ca8-b551-62e394e491bf)
 
 
-**la $t0, c** - Aqui, salvamos o endereco de c em $t0 para na proxima instruacao poder carregar o valor de $s0 (da resposta do calculo) para o lugar certo da memoria de dados.
+**la $t0, c** - Aqui, salvamos o endereço de ```c``` em ```$t0``` para, na próxima instrução, podermos armazenar o valor de ```$s0``` (resultado do cálculo) no local correto da memória de dados.
 
 ![la $t0, c](https://github.com/user-attachments/assets/c39bdcf6-ffc6-4dd5-985c-7ccec7716469)
 
 
-**sw $s0, 0($t0)**
+**sw $s0, 0($t0)** Por fim, armazenamos o resultado final do cálculo em ```c```, na memória de dados.
 
 ![sw $s0, 0($t0)](https://github.com/user-attachments/assets/46ab1277-ad90-42f4-97f1-ef5d76c40ea1)
 
 
-### 1.6 Conclusao
-Embora nos nao tenhamos conseguido implementar uma solucao para um d generico, dada a restricao onde d = 2, o codigo escrito resolve de forma correta as duas equacoes dadas pelos problema.
-
+### 1.6 Conclusão
+Embora não tenhamos conseguido implementar uma solução para um valor genérico de ```d```, considerando a restrição de que ```d = 2```, o código escrito resolve corretamente as duas equações propostas no problema.
 
 
 ## 2. Exercício 2
 
 
-### 2.1 Introducao
-Nosso objetivo no exercicio 2 eh aprimorar o codigo feito para o exercicio 1, implementando input por teclado (para os valores que serao armazenados em 'b', 'd' e 'e') e exibindo o valor final da conta, armazenado em 'c', no console. A logica de resolucao do problema e sua implementacao sao as mesmas do exercicio anterior, as unicas modificacoes foram a insercao de trechos e comandos para receber o valor das variaveis do teclado e exibir a resposta final. Por isso, nessa sessao cobriremos apenas a parte inedita do codigo, nao repetindo a explicacao da implementacao e execucao da solucao, ja vistas no topico 1.
+### 2.1 Introdução
+Nosso objetivo no exercício 2 é aprimorar o código desenvolvido no exercício 1, implementando entrada de dados via teclado (para os valores que serão armazenados em ```b```, ```d``` e ```e```) e exibindo o valor final do cálculo, armazenado em ```c```, no console.
+A lógica de resolução do problema e sua implementação permanecem as mesmas do exercício anterior. As únicas modificações foram a inserção de trechos e comandos para receber os valores das variáveis via teclado e exibir a resposta final.
+Por isso, nesta seção abordaremos apenas a parte inédita do código, sem repetir a explicação da implementação e execução da solução, já discutidas no Tópico 1.
 
 
-### 2.2 Syscal: Metodos de Leitura e Escrita de Inteiros
-Para receber valores do teclado e exibir dados no console precisamos fazer chamadas de sistema. Em assembly, exietsm metodos/funcoes para o syscal, sendo o 5 para leitura de inteiro e 1 para impressao de inteiro. 
+### 2.2 *Syscall*: Métodos de Leitura e Escrita de Inteiros
+Para receber valores do teclado e exibir dados no console, utilizamos chamadas de sistema (*syscalls*).
+Em Assembly, existem diferentes códigos de operação para syscalls: o código 5 é utilizado para a leitura de inteiros, e o código 1 para a impressão de inteiros.
 
-Para fazer a leitura de valores, comecamos por armazenar em $v0 o valor da instrucao que deseja-se fazer. Depois, fazemos a chamada de syscal e terminamos armazenando o valor que agora esta em $v0 na variavel correspondente ('b', 'd' e 'e', respectivamente).
+Para realizar a leitura dos valores, começamos armazenando em ```$v0``` o código da operação desejada. Em seguida, fazemos a chamada de sistema com *syscall* e, por fim, armazenamos o valor agora contido em ```$v0``` na variável correspondente (```b```, ```d``` ou ```e```, respectivamente).
 ```
 # entrada de dados
 li $v0, 5  # a operacao 5 eh ler um inteiro
@@ -167,7 +169,8 @@ syscall
 sw $v0, e
 ```
 
-Para exibir o resultado no console, comecamos guardando em $v0 a instrucao para impressao de inteiro (nesse caso, 1), move o valor de c para $a0 o valor a ser impresso e, por fim, faz a chamada de sistema.
+Para exibir o resultado no console, iniciamos guardando em ```$v0``` o código de operação para impressão de inteiros (no caso, 1).
+Em seguida, movemos para ```$a0``` o valor da variável ```c```, que é o valor a ser impresso, e então realizamos a chamada de sistema com *syscall*.
 ```
 # exibindo o resultado
 li $v0, 1  # a operacao 1 eh de impressao de inteiro
@@ -175,6 +178,6 @@ move $a0, c  # move o valor de c para a0 (para imprimir)
 syscall
 ```
 
-### 2.3 Execucao do Programa
-**Assemble** - Ao montar o programa, vemos a seguinte tela no Mars
+### 2.3 Execução do Programa
+**Assemble** - Ao montar o programa, vemos a seguinte tela no MARS:
 ![Inicio exercicio 2](https://github.com/user-attachments/assets/6609553a-114c-4075-b482-cbc345d919a6)
