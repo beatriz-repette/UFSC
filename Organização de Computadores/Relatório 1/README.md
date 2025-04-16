@@ -7,22 +7,22 @@ Nesse exercicio, nos implementamos duas equacoes de alto nivel na linguagem de m
 
 ### 1.1 Introducao
 O exercico proposto consiste em implementar duas equacoes de alto nivel na linguagem de montagem Assembly. 
-$$
+```
 a = b + 35
 c = d^3 - (a + e)
-$$
+```
 Para realizar esses calculos, declaramos as variaveis b, c, d e e na memoria de dados e atribuimos valores iniciais a essas variaveis. Para essa resolucao escolhemos os seguintes valores de inicio:
-$$
+```
 b = 5
 c = 0
 d = 2
 e = 10
-$$
+```
 Observamos que a variavel 'a' nao foi declarada em memoria de dados. Como essa variavel sera usada apenas para armazenar o valor do resultado inicial da operacao "b + 35" e logo depois sera usado em outro calculo, podemos mante-lo em um registrador. Alem disso, eh importante destacar que a variavel 'c' eh inicializada em zero, mas servira mais tarde para armazenar o resultado da segunda expressao.
 
 
 ### 1.2 Caracteristicas Gerais do Programa
-O programa elaborado para resolver esse exercicio tem 33 linhas de codigo. *Adicionar mais infos conforme necessario!*
+O programa elaborado para resolver o exercicio 1 teve 14 linhas em 'basic' e 10 linhas em 'source'. Essa diferenca de valores ocorre por causa de pseudoinstrucoes ou por existirem instrucoes que nao sao mostradas em 'soruce'. No nosso codigo usamos a instrucao 'la', que de fato interpretada como duas instrucoes, 'lui' e 'ori'. Alem disso, quando implementamos a instrucao 'lw' no nosso codigo carregando o endereco de uma variavel na memoria de dados, o mars adiciona a instrucao 'lui' antes de 'lw', o que tambem incrementa o numero de linhas do 'basic' quando comparado ao 'source'. **mudar pra 16 e 12 se eu for usar o syscal**
 
 
 ### 1.3 Declaracao das Variaveis em Memoria de Dados
@@ -128,7 +128,7 @@ Agora, a seguir observamos as atualizacoes feita na tabela de registradores e na
 ![sub $s0, $t6, $t3](https://github.com/user-attachments/assets/f23ac1b8-8a58-4ca8-b551-62e394e491bf)
 
 
-**la $t0, c**
+**la $t0, c** - Aqui, salvamos o endereco de c em $t0 para na proxima instruacao poder carregar o valor de $s0 (da resposta do calculo) para o lugar certo da memoria de dados.
 
 ![la $t0, c](https://github.com/user-attachments/assets/c39bdcf6-ffc6-4dd5-985c-7ccec7716469)
 
@@ -142,4 +142,12 @@ Agora, a seguir observamos as atualizacoes feita na tabela de registradores e na
 Embora nos nao tenhamos conseguido implementar uma solucao para um d generico, dada a restricao onde d = 2, o codigo escrito resolve de forma correta as duas equacoes dadas pelos problema.
 
 
+
 ## 2. Exercício 2
+
+
+### 2.1 Introducao
+Nosso objetivo no exercicio 2 eh aprimorar o codigo feito para o exercicio 1, implementando input por teclado (para os valores que serao armazenados em 'b', 'd' e 'e') e exibindo o valor final da conta, armazenado em 'c', no console. A logica de resolucao do problema e sua implementacao sao as mesmas do exercicio anterior, as unicas modificacoes foram a insercao de trechos e comandos para receber o valor das variaveis do teclado e exibir a resposta final. Por isso, nessa sessao cobriremos apenas a parte inedita do codigo, nao repetindo a explicacao da implementacao e execucao da solucao, ja vistas no topico 1.
+
+
+### 2.2 Syscal: Metodos de Leitura e Escrita de Inteiros
