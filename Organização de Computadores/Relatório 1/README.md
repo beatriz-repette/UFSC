@@ -19,7 +19,7 @@ e = 10
 ```
 
 ### 1.2 Características Gerais do Programa
-O programa elaborado para resolver o exercício 1 possui 14 linhas na aba *basic* e 10 linhas na aba *source*. Essa diferença ocorre devido à presença de pseudoinstruções, que são traduzidas pelo montador em múltiplas instruções reais que aparecem na aba *basic*, mas aparecem como uma única linha na aba source (com o que nós *de fato* escrevemos como instrução).
+O programa elaborado para resolver o exercício 1 possui 16 linhas na aba *basic* e 12 linhas na aba *source*. Essa diferença ocorre devido à presença de pseudoinstruções, que são traduzidas pelo montador em múltiplas instruções reais que aparecem na aba *basic*, mas aparecem como uma única linha na aba source (com o que nós *de fato* escrevemos como instrução).
 
 Em nosso código, utilizamos a instrução ```la```, que, na verdade, é interpretada como duas instruções: ```lui``` e ```ori```. Além disso, ao utilizarmos a instrução ```lw``` para carregar o valor de uma variável da memória de dados, o MARS insere automaticamente a instrução ```lui``` antes de ```lw``` (como o MARS não é capaz de manipular endereços de 32 bits inteiros de uma só vez, como é o caso dos endereços de memória, é necessário dividi-los em partes superiores e inferiores), o que também contribui para o aumento no número de linhas na aba *basic*.
 
@@ -139,6 +139,14 @@ Agora, a seguir observamos as atualizacoes feita na tabela de registradores e na
 ### 1.6 Conclusão
 Embora não tenhamos conseguido implementar uma solução para um valor genérico de ```d```, considerando a restrição de que ```d = 2```, o código escrito resolve corretamente as duas equações propostas no problema.
 
+Depois da elaboração do código e da escrita dessa parte do relatório, descobrimos a importância de sempre finalizar o programa com a chamada de sistema correspondente à finalização (syscall com o código 10). Assim, embora as capturas de tela sejam de uma versão anterior do código e não mostrem essa instrução, o seguinte trecho foi posteriormente adicionado:
+'''assembly
+li $v0, 10
+syscall
+ '''
+Com isso, garantimos que o programa seja finalizado corretamente, evitando erros ou comportamentos inesperados durante a execução.
+
+
 
 ## 2. Exercício 2
 
@@ -149,7 +157,10 @@ A lógica de resolução do problema e sua implementação permanecem as mesmas 
 Por isso, nesta seção abordaremos apenas a parte inédita do código, sem repetir a explicação da implementação e execução da solução, já discutidas no Tópico 1.
 
 
-### 2.2 *Syscall*: Métodos de Leitura e Escrita de Inteiros
+### 2.1 Características Gerais do Programa
+
+
+### 2.3 *Syscall*: Métodos de Leitura e Escrita de Inteiros
 Para receber valores do teclado e exibir dados no console, utilizamos chamadas de sistema (*syscalls*).
 Em Assembly, existem diferentes códigos de operação para syscalls: o código 5 é utilizado para a leitura de inteiros, e o código 1 para a impressão de inteiros.
 
@@ -169,8 +180,7 @@ syscall
 sw $v0, e
 ```
 
-Para exibir o resultado no console, iniciamos guardando em ```$v0``` o código de operação para impressão de inteiros (no caso, 1).
-Em seguida, movemos para ```$a0``` o valor da variável ```c```, que é o valor a ser impresso, e então realizamos a chamada de sistema com *syscall*.
+Para exibir o resultado no console, iniciamos carregando o endereço da variável ```c``` em ```$t1``` com a instrução ```la```. Em seguida, utilizamos ```lw``` para carregar o valor armazenado nesse endereço (ou seja, o conteúdo de ```c```) para o registrador ```$a0```, que é o registrador responsável por armazenar o valor a ser impresso. Depois disso, colocamos o código da operação de impressão de inteiro (1) em $v0 e, por fim, realizamos a chamada de sistema.
 ```
 # exibindo o resultado
 li $v0, 1  # a operacao 1 eh de impressao de inteiro
@@ -178,6 +188,6 @@ move $a0, c  # move o valor de c para a0 (para imprimir)
 syscall
 ```
 
-### 2.3 Execução do Programa
+### 2.4 Execução do Programa
 **Assemble** - Ao montar o programa, vemos a seguinte tela no MARS:
 ![Inicio exercicio 2](https://github.com/user-attachments/assets/6609553a-114c-4075-b482-cbc345d919a6)
