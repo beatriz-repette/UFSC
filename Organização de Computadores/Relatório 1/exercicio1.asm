@@ -31,3 +31,7 @@ main:
 	sub $s0, $t6, $t3
 	la $t0, c  # o endereco de 'c' é carregado para t0
 	sw $s0, 0($t0)  # o valor em s0 é armazenado no endereco de memoria indicado em t0, ou seja, no c
+	
+	# encerrar o programa
+	li $v0, 10
+	syscall
