@@ -217,3 +217,60 @@ Depois desses comandos, é realizada a chamada de sistema (*syscall*) que exibe 
 Após a implementação da lógica principal do código responsável por resolver as equações propostas, a adição dos elementos de entrada e saída (I/O) foi bastante simples.
 
 Entretanto, considerando que, no nosso programa, o valor de ```d``` está restrito a 2, uma possível melhoria seria fixar esse valor diretamente no código, impedindo que o usuário o modifique. Essa abordagem evitaria a inserção de valores inválidos por usuários desavisados, tornando a execução mais segura e controlada. A implementação não seguiu essa abordagem, pois optamos por seguir as orientações propostas no enunciado do exercício. No entanto, essa alternativa deveria ser considerada para uma possível versão futura do programa.
+
+## 3. Exercício 3
+
+### 3.1 Introdução
+Para esse exercicio, precisamos montar um codigo em Assembly que exibisse em um display de 7 segmentos de forma sequencial os numeros de 0 a 9. Decidimos resolver esse problema vinculando cada numero a um codigo binario de display correspondente e enviando esses codigos a um endereco de memoria responsavel pela renderizacao do display. Ao final da sequencia, o programa reinicia, formando um loop infinito.
+
+### 3.2 Características Gerais do Programa
+Dessa vez, nosso programa teve 16 linhas na aba *basic* e 13 na aba *source*. A disparidade foi causada novamente pelas instruções que usamos no *source*, como o ```la```, que, quando convertidas pelo assembly, geram mais de uma instrução de fato.
+
+### 3.3 Implementação da Resolução
+**digits**
+```assembly
+digits: 
+    .word 0x3F   # 0
+    .word 0x06   # 1
+    .word 0x5B   # 2
+    .word 0x4F   # 3
+    .word 0x66   # 4
+    .word 0x6D   # 5
+    .word 0x7D   # 6
+    .word 0x07   # 7
+    .word 0x7F   # 8
+    .word 0x6F   # 9
+```
+Nessa parte do código, declaramos e armazenamos em 'digits' os códigos binários responsáveis por acender cada um dos dígitos no display. Cada número é armazenado em uma palavra de 4 bytes para padronizar o código, mas somente o byte menos significativo será utilizado para acender os segmentos do display (já que o display espera um valor de 1 byte).
+
+**main**
+```assembly
+main:
+    la $t0, digits # $t0 recebe o endereco de digits na mem (sera usado pra percorrer o vetor)
+    li $t1, 0xFFFF0010 # $t1 recebe o endereco do display (carregar nums aqui)
+    li $t2, 0  # $t2 sera o contador, inicia em
+```
+A função main inicializa o programa preparando as variáveis e o ambiente necessário para a execução. Primeiramente, ela armazena o endereço do vetor digits, que contém os códigos binários correspondentes aos números de 0 a 9, em um registrador. Esse vetor será percorrido para acessar os valores que acendem os segmentos do display de 7 segmentos. Em seguida, o endereço do display também é armazenado em outro registrador, para que os valores sejam enviados corretamente para o display. O contador é iniciado em zero, e ele será usado para controlar quantos números já foram exibidos, indo de 0 até 9.
+
+**loop**
+```assembly
+loop:
+    lw $t3, 0($t0) # $t3 recebe a palavra atual do display
+    sb $t3, 0($t1) # envia o byte menos significativo pro display (ele determina o num)
+
+    li $v0, 32  # a operacao 32 eh de espera
+    li $a0, 500  # espera 500 ms
+    syscall
+
+    addi $t0, $t0, 4  # avanca para o proximo num do vetor
+    addi $t2, $t2, 1  # incrementa o contador
+    
+    li $t4, 10
+    blt $t2, $t4, loop  # se $t2 < 10 ainda precisamos percorrer o loop
+
+    j main # reinicia caso o loop ja tiver sido percorrido
+```
+O loop tem a responsabilidade de percorrer os valores do vetor digits, enviando-os para o display de forma sequencial. Para cada iteração, o código carrega o valor correspondente ao número atual do vetor, envia esse valor para o display e então aguarda 500 milissegundos para que o número fique visível. Após isso, o contador é incrementado, e o programa verifica se todos os números de 0 a 9 foram exibidos. Se o contador atingir 10, o ciclo se reinicia e os números começam a ser mostrados novamente, criando um efeito de contagem contínua no display de 7 segmentos. Esse processo se repete indefinidamente, proporcionando uma exibição cíclica dos números no display.
+
+### 3.4 Conclusão
+Sentimos que a dificuldade aumentou bastante do exercício anterior para este, pois gastamos muito tempo pensando e testando diferentes implementações. Por fim, chegamos a uma solução que funcionasse, mas foi a um custo muito maior do que nos itens anteriores.
