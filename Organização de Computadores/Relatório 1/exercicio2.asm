@@ -1,4 +1,4 @@
-# Questao 1
+# Questao 2
 
 .data  # usa-se data para armazenar as variaveis declaradas a seguir em memoria de dados
 
