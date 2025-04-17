@@ -157,8 +157,8 @@ A lógica de resolução do problema e sua implementação permanecem as mesmas 
 Por isso, nesta seção abordaremos apenas a parte inédita do código, sem repetir a explicação da implementação e execução da solução, já discutidas no Tópico 1.
 
 
-### 2.1 Características Gerais do Programa
-
+### 2.2 Características Gerais do Programa
+Com a adição dos mecanismos de entrada e saída (I/O), nosso código passou a ter 33 linhas na aba *basic* e 25 na aba *source*. A razão para essa diferença permanece a mesma do exercício anterior: comandos como ```la``` e ```lw``` (quando envolve endereços de memória) usam mais instruções, resultando em um número maior de linhas em *basic*.
 
 ### 2.3 *Syscall*: Métodos de Leitura e Escrita de Inteiros
 Para receber valores do teclado e exibir dados no console, utilizamos chamadas de sistema (*syscalls*).
@@ -184,10 +184,36 @@ Para exibir o resultado no console, iniciamos carregando o endereço da variáve
 ```
 # exibindo o resultado
 li $v0, 1  # a operacao 1 eh de impressao de inteiro
-move $a0, c  # move o valor de c para a0 (para imprimir)
+move $a0, c  # move o valor de c para a0 (pra imprimir)
 syscall
 ```
 
 ### 2.4 Execução do Programa
 **Assemble** - Ao montar o programa, vemos a seguinte tela no MARS:
-![Inicio exercicio 2](https://github.com/user-attachments/assets/6609553a-114c-4075-b482-cbc345d919a6)
+![Inicio exercicio 2](https://github.com/user-attachments/assets/20164851-6033-45dc-bf1f-86de383abc74)
+
+**Syscall - Input** - Logo após o início da execução do código, o usuário deve fornecer, por meio do teclado, os valores desejados para as variáveis ```a```, ```d```, e ```e```, respectivamente. Nas imagens abaixo, é possível observar como esses valores são alocados em registradores e armazenados na memória de dados.
+![Input 1](https://github.com/user-attachments/assets/2117d4c0-a7e5-41dc-9979-69b8af24349e)
+![Input 2](https://github.com/user-attachments/assets/1a42a73e-2dca-4701-89e8-914b14f2e711)
+![Input 3](https://github.com/user-attachments/assets/92f17fc6-be5e-48e3-a8c1-29acca366ad2)
+Neste exemplo, foram utilizados os valores ```a = 5```, ```d = 2``` e ```e = 20``` para as variáveis. Reforçamos, mais uma vez, que embora os valores de```a``` e ```e``` possam ser escolhidos livremente, ```d``` deve obrigatoriamente assumir o valor 2, conforme a limitação estabelecida anteriormente.
+
+**Lógica de Resolução** - Após receber as entradas e armazená-las na memória de dados, o código segue a mesma lógica de execução apresentada no exercício anterior, até o momento em que a resposta final é exibida no console.
+
+**la $t1, c** - Este comando inicia a inicio da preparação para exibir o valor final no console. Nesse passo, o endereço de ```c``` na memória de dados é carregado para o ```$t1```.
+![la $t1, c](https://github.com/user-attachments/assets/22ae62c9-b9b4-4be1-a324-33eb91c9278b)
+
+**lw $a0, 0($t1)** - O valor armazenado na posição de memória de ```c``` é carregado para o registrador ```$a0```, que será utilizado para a impressão.
+![lw $a0, 0($t1)](https://github.com/user-attachments/assets/8e83ead9-5448-4758-8047-7ae236c12a27)
+
+**li $v0, 1** - O código de operação para a impressão de inteiro é armazenado em ```$v0```.
+![li $v0, 1](https://github.com/user-attachments/assets/58a9b854-7b1b-4ad7-ad66-c7162596612c)
+
+Depois desses comandos, é realizada a chamada de sistema (*syscall*) que exibe no console o valor presente em ```$a0```, ou seja, o resultado final da operação. Por fim, o programa é encerrado, como mostrado na imagem abaixo.
+![encerrado](https://github.com/user-attachments/assets/dc887cdc-bb4c-4d11-a26d-ee9c772cd63a)
+
+
+### 2.5 Conclusão
+Após a implementação da lógica principal do código responsável por resolver as equações propostas, a adição dos elementos de entrada e saída (I/O) foi bastante simples.
+
+Entretanto, considerando que, no nosso programa, o valor de ```d``` está restrito a 2, uma possível melhoria seria fixar esse valor diretamente no código, impedindo que o usuário o modifique. Essa abordagem evitaria a inserção de valores inválidos por usuários desavisados, tornando a execução mais segura e controlada. A implementação não seguiu essa abordagem, pois optamos por seguir as orientações propostas no enunciado do exercício. No entanto, essa alternativa deveria ser considerada para uma possível versão futura do programa.
