@@ -272,5 +272,9 @@ loop:
 ```
 O loop tem a responsabilidade de percorrer os valores do vetor digits, enviando-os para o display de forma sequencial. Para cada iteração, o código carrega o valor correspondente ao número atual do vetor, envia esse valor para o display e então aguarda 500 milissegundos para que o número fique visível. Após isso, o contador é incrementado, e o programa verifica se todos os números de 0 a 9 foram exibidos. Se o contador atingir 10, o ciclo se reinicia e os números começam a ser mostrados novamente, criando um efeito de contagem contínua no display de 7 segmentos. Esse processo se repete indefinidamente, proporcionando uma exibição cíclica dos números no display.
 
-### 3.4 Conclusão
+### 3.4 Execução do Programa
+Tudo ocorreu conforme o esperado na execução, todos os valores foram exibidos no display corretamente.
+![Image](https://github.com/user-attachments/assets/c9bae86f-6725-4939-b015-e240167034c9)
+
+### 3.5 Conclusão
 Sentimos que a dificuldade aumentou bastante do exercício anterior para este, pois gastamos muito tempo pensando e testando diferentes implementações. Por fim, chegamos a uma solução que funcionasse, mas foi a um custo muito maior do que nos itens anteriores.
