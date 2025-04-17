@@ -4,12 +4,12 @@
 	tamanho:.word 9  # tamanho da matriz
 
 	A:	.word 1, 2, 3
-		.word 0, 1, 4
-		.word 0, 0, 1
+		      0, 1, 4
+		      0, 0, 1
 	
 	B:	.word 1, -2, 5
-		.word 0, 1, -4
-		.word 0, 0, 1
+		      0, 1, -4
+		      0, 0, 1
 		
 		
 .text
